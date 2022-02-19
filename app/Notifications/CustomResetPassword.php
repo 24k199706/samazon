@@ -6,10 +6,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Auth\Notifications\ResetPassword;
 
 
-class CustomResetPassword extends ResetPassword
+class CustomResetPassword extends Notification
 {
     use Queueable;
     public $token;

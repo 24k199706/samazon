@@ -5,15 +5,10 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Notifications\CustomVerifyEmail;
 use App\Notifications\CustomResetPassword;
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
-    use Notifiable;
-    public function sendEmailVerificationNotification()
-    {
-        $this->notify(new CustomVerifyEmail());
-    }
+    
     public function sendPasswordResetNotification($token) {
         $this->notify(new CustomResetPassword($token));
     }
@@ -23,7 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','postal_code','address','phone'
     ];
 
     /**
@@ -43,4 +38,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function reviews()
+    {
+        return $this->hasmany('App\Review');
+    }
 }

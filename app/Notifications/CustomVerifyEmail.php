@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Auth\Notifications\VerifyEmail;
 
-class CustomVerifyEmail extends VerifyEmail
+class CustomVerifyEmail extends Notification
 {
     use Queueable;
 
@@ -42,9 +42,9 @@ class CustomVerifyEmail extends VerifyEmail
     public function toMail($notifiable)
     {
         return (new MailMessage)
-        ->line(__('Verify Your Email Address'))
-        ->action(__('Verify Email Address'), url('/'))
-        ->line(__('If you did not create an account, no further action is required.'));
+        ->line('The introduction to the notification.')
+        ->action('Notification Action', url('/'))
+        ->line('Thank you for using our application!');
     }
 
     /**
