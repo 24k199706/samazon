@@ -22,7 +22,7 @@
                 <hr>
             </div>
             @auth
-            <form method="POST" class="m-3 align-items-end">
+            <form method="POST" action="{{route('carts.store')}}" class="m-3 align-items-end">
                 {{ csrf_field() }}
                 <input type="hidden" name="id" value="{{$product->id}}">
                 <input type="hidden" name="name" value="{{$product->name}}">
@@ -53,10 +53,7 @@
                             お気に入り
                         </a>
                         @endif
-                        <a href="/products/{{ $product->id }}/favorite" class="btn samazon-favorite-button text-dark w-100">
-                            <i class="fa fa-heart"></i>
-                            お気に入り
-                        </a>
+                        
                     </div>
                 </div>
             </form>
@@ -69,8 +66,37 @@
         </div>
 
         <div class="offset-1 col-10">
-            <!-- レビューを実装する箇所になります -->
+            <div class="row">
+                @foreach($reviews as $review)
+                <div class="offset-md-5 col-md-5 mt-3">
+                    <h3 class="review-score-color">{{ str_repeat('★', $review->score) }}</h3>
+                    <p class="h3">{{$review->content}}</p>  
+                    <h4>{{$review->user->name}}</h4>
+                    <label>{{$review->created_at}}</label>
+                </div>
+                @endforeach
+            </div>
         </div>
+        @auth
+            <div class="row mt-5">
+                <div class="offset-md-5 col-md-5">
+                    <form method="POST" action="/products/{{ $product->id }}/reviews">
+                        {{ csrf_field() }}
+                        <h4>評価</h4>
+                        <select name="score" class="form-control m-2 review-score-color">
+                            <option value="5" class="review-score-color">★★★★★</option>
+                            <option value="4" class="review-score-color">★★★★</option>
+                            <option value="3" class="review-score-color">★★★</option>
+                            <option value="2" class="review-score-color">★★</option>
+                            <option value="1" class="review-score-color">★</option>
+                        </select>
+                        <h4>レビュー内容</h4>
+                        <textarea name="content" class="form-control m-2"></textarea>
+                        <button type="submit" class="btn samazon-submit-button ml-2">レビューを追加</button>
+                    </form>
+                </div>
+            </div>
+        @endauth
     </div>
 </div>
 @endsection

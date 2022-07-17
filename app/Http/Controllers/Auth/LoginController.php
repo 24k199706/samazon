@@ -36,4 +36,16 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function guard(){
+        return Auth::guard('admins');
+    }
+
+    public function showLoginForm(){
+        return view('dashboard.auth.login');
+    }
+
+    public function loggedOut(Request $request){
+        return redirect('dashboard.login');
+    }
 }

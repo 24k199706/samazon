@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -52,7 +53,7 @@ class UserController extends Controller
         $user->postal_code=$request->input('postal_code')? $request->input('postal_code'):$user->postal_code;
         $user->address=$request->input('address')? $request->input('address'):$user->address;
         $user->phone=$request->input('phone')? $request->input('phone'):$user->phone;
-        $user->pdate();
+        $user->update();
 
         return redirect()->route('mypage');
     }
@@ -69,5 +70,23 @@ class UserController extends Controller
             return redirect()->route('mypage.edit_password');
         }
         return redirect()->route('mypage');
+    }
+    public function favorite(){
+        $user=Auth::user();
+        $favorite=$user->favorites(Product::class)->get();
+        return view('user.favorite',compact('favorite'));
+    }
+
+    public function destroy(Request $request){
+        $user=Auth::user();
+        if($user->deleted_flag){
+            $user->deleted_flag=false;
+
+        }else{
+            $user->delete_flag=true;
+        }
+        $user->update();
+        auth::logout();
+        return redirect('/')
     }
 }
