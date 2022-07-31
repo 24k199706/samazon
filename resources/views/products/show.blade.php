@@ -47,13 +47,17 @@
                             <i class="fa fa-heart"></i>
                             お気に入り解除
                         </a>
-                        @else
+                    @else
                         <a href="/products/{{ $product->id }}/favorite" class="btn samazon-favorite-button text-favorite w-100">
                             <i class="fa fa-heart"></i>
                             お気に入り
                         </a>
+<<<<<<< Updated upstream
                         @endif
                         
+=======
+                    @endif
+>>>>>>> Stashed changes
                     </div>
                 </div>
             </form>
@@ -68,6 +72,7 @@
         <div class="offset-1 col-10">
             <div class="row">
                 @foreach($reviews as $review)
+<<<<<<< Updated upstream
                 <div class="offset-md-5 col-md-5 mt-3">
                     <h3 class="review-score-color">{{ str_repeat('★', $review->score) }}</h3>
                     <p class="h3">{{$review->content}}</p>  
@@ -76,6 +81,38 @@
                 </div>
                 @endforeach
             </div>
+=======
+                    <div class="offset-md-5 col-md-5 mt-3">
+                        <h3 class="review-score-color">{{ str_repeat('★', $review->score)}}</h3>
+                        <p class="h3">{{$review->content}}</p>
+                        <h4>{{$review->user->name}}</h4>
+                        <label>{{$review->created_at}}</label>
+                    </div>
+                @endforeach
+            </div>
+            @auth
+                <div class="row">
+                    <div class="offset-md-5 col-md-5">
+                        <form method="post" action="/products/{{ $product->id }}/reviews">
+                            {{csrf_field() }}
+                            <h4>評価</h4>
+                            <select name='score' class="form-control m-2 review-score-color">
+                                <option value="5" class="review-score-color"></option>
+                                <option value="4" class="review-score-color"></option>
+                                <option value="3" class="review-score-color"></option>
+                                <option value="2" class="review-score-color"></option>
+                                <option value="1" class="review-score-color"></option>
+                            </select>
+                            <h4>レビュー内容</h4>
+                            <textarea name="content" class="form-control m-2"></textarea>
+                            <button type="submit" class="btn samuraimart-submit-button ml-2">レビューを追加</button>
+                        </form>
+                    </div>
+                </div>
+                
+            @endauth
+
+>>>>>>> Stashed changes
         </div>
         @auth
             <div class="row mt-5">

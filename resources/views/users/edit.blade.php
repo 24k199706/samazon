@@ -1,18 +1,18 @@
 @extends('layouts.app')
-2
-3@section('content')
-4<div class="container">
+
+@section('content')
+<div class="container">
 <div class="row justify-content-center">
     <div class="col-md-5">
         <span>
             <a href="{{ route('mypage') }}">マイページ</a> > 会員情報の編集
         </span>
 
-         <h1 class="mt-3 mb-3">会員情報の編集</h1>
+        <h1 class="mt-3 mb-3">会員情報の編集</h1>
 
-         <hr>
+        <hr>
 
-         <form method="POST" action="/users/mypage">
+        <form method="POST" action="/users/mypage">
             @csrf
             <input type="hidden" name="_method" value="PUT">
             <div class="form-group">

@@ -15,12 +15,13 @@ class CartController extends Controller
      */
     public function index()
     {
-        $cart=Cart::instance(Auth::user()->id)->content();
+        $cart=Cart::instances(Auth::user()->id)->content();
         $total=0;
-        foreach ($cart as $c){
+        foreach($cart as $c){
             $total+=$c->qty*$c->price;
+
         }
-        return view('cart.index', compact('cart','total'));
+        return view('cart.index',compact('cart','total'));
     }
 
     /**
@@ -33,14 +34,15 @@ class CartController extends Controller
     {
         Cart::instance(Auth::user()->id)->add(
             [
-                'id' => $request->id,
-                'name'=>$request->name,
-                'qty'=>$request->qty,
-                'price'=>$request->price,
-                'weight'=>$request->weight,
+                'id'->$request->id,
+                'name'->$request->name,
+                'qty'->$request->qty,
+                'price'->$request->price,
+                'wegth '->$request->wegth,
+
             ]
             );
-            return redirect()->route('products.show',$request->get('id'));
+            return redirect()->route('product.show',$request->get('id'));
     }
 
     /**
@@ -51,26 +53,19 @@ class CartController extends Controller
      */
     public function show($id)
     {
-        $cart=DB::table('shoppingcart')->where('instances',Auth::user()->id)->where('indentifier',$count)->get();
-        return view('care.show',compact('cart'));
+        $cart=DB::table('shoppingcart')->where('instance',Auth::user()->$id)->where('identifier',$count)->get();
+        return view('cart.show', compact('cart'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request)
     {
-        if($request->input('delete')){
-            Cart::instance(Auth::user())->remove($request->input('id'));
-
+        if ($request->input('delete')){
+            Cart::instance(Auth::user()->id)->remove($request->input('id'));
+        
         }else{
-            Cart::instance(Auth::user())->update($request->input('id'),$request->input('qty'));
+            Call::instace(Auth::user()->id)->update($request->input('qty'));
         }
-        return redirect()->route('carts.index');
+        return redirect()->route('Carts.index');
     }
 
     /**
@@ -81,13 +76,13 @@ class CartController extends Controller
      */
     public function destroy(Request $request)
     {
-        $user_shoppingcarts=DB::table('shoppingcart')->where('instances',Auth::user()->id)->get();
+        $user_shoppingcarts=DB::table('shoppingcart')->where('instance',Auth::user()->id)
+        ->get();
         $count=$user_shoppingcarts->count();
         $count+=1;
-        Cart::instance(Auth::user()->id)->store($count);
-        DB::table('shoppingcart')->where('instance',Auth::user()->id)->where('number',null)->update(['number'=>$count,'buy_flag' => true]);
-        Cart::instance(Auth::user()->id)->destroy();
-        return redirect()->route('carts.index');
-
+        Cart::instace(Auth::user()->id);
+        DB::table('shoppingcart')->where('instance',Auth::user()->id)->where('number',null)->update(['number'=>$count,'buy_flag'=>true]);
+        Cart::instace(Auth::user()->id)->destroy();
+        return redirect()->route('cart.index');
     }
 }

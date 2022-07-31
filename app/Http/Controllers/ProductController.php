@@ -32,8 +32,8 @@ class ProductController extends Controller
             $category = Category::find($request->category);
         }else{
             $products = Product::sortable($sort_query)->paginate(15);
-            $total_count="";
             $category=null;
+            $total_count="";
         }
         $sort = [
             '並び替え' => '', 
@@ -66,7 +66,52 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $reviews = $product->reviews()->get();
+        $reviews=$product->reviews()->get();
+
         return view('products.show', compact('product','reviews'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Product $product)
+    {
+        $categories = Category::all();
+        return view('products.edit', compact('product', 'categories'));
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Product $product)
+    {
+        $product->name=$request->input('name');
+        $product->description = $request->input('description');
+        $product->price = $request->input('price');
+        $product->category_id = $request->input('category_id');
+        $product->update();
+
+        return redirect()->route('products.show', ['id' => $product->id]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Product $product)
+    {
+        $product->delete();
+        return redirect()->route('products.index');
+
     }
 }

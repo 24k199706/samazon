@@ -19,11 +19,6 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
-    {
-        //
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -61,7 +56,7 @@ class UserController extends Controller
         $user=Auth::user();
         return view('users.edit_address',compact('user'));
     }
-    public function password_update(Request $request){
+    public function update_password(Request $request){
         $user=Auth::user();
         if ($request->input('password')==$request->input('password_confirmation')){
             $user->password=bcrypt($request->input('password'));
@@ -74,19 +69,7 @@ class UserController extends Controller
     public function favorite(){
         $user=Auth::user();
         $favorite=$user->favorites(Product::class)->get();
-        return view('user.favorite',compact('favorite'));
+        return view('user.favorite',compact("favorites"));
     }
 
-    public function destroy(Request $request){
-        $user=Auth::user();
-        if($user->deleted_flag){
-            $user->deleted_flag=false;
-
-        }else{
-            $user->delete_flag=true;
-        }
-        $user->update();
-        auth::logout();
-        return redirect('/')
-    }
 }

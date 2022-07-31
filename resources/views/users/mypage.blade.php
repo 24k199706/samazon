@@ -89,13 +89,13 @@
                         </div>
                     </div>
                     <div class="d-flex align-items-center">
-                        <a href="{{ route('mypage.edit_password') }}">
+                        <a href="{{route('mypage.edit_password')}}">
                             <i class="fas fa-chevron-right fa-2x"></i>
                         </a>
                     </div>
                 </div>
             </div>
-        </hr>
+        <hr>
         <div class="container">
             <div class="d-flex justify-content-between">
                 <div class="row">
@@ -116,7 +116,7 @@
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
-                    </form>
+                </form>
                 </div>
             </div>
         </div>

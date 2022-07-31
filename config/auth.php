@@ -40,16 +40,16 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-    'admins' => [
-        'driver' => 'session',
-        'provider' => 'admins',
-    ],
-
+        'admins'=>[
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
             'hash' => false,
         ],
+        
     ],
 
     /*
@@ -84,7 +84,12 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+        'admins' => [
+                'driver' => 'database',
+                'model' => App\Admin::class,
+            ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------

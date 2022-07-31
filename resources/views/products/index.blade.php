@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 <div class="row">
     <div class="col-2">
     @component('components.sidebar', ['categories' => $categories, 'major_category_names' => $major_category_names])
@@ -28,14 +27,20 @@
                 </form>
             @endif
         </div>
-
         <div class="container mt-4">
             <div class="row w-100">
             @foreach($products as $product)
+
                 <div class="col-3">
-                    <a href="{{route('products.show', $product)}}">
+                    <a href="{{route('products.show', $product)}}"></a>
+                    <a href="{{route('products.edit', $product)}}"></a>
+                    <form action="/products/{{ $product->id }}" method="post" onsubmit="if(confirm('Delete? Are you sure' )) {return true} else {return false}; ">
+                        <input type="hidden" name="_metohd" value="DELETE">
+                        <input type="hidden" name="_token" value="{{csrf_token()}}">
+                        <button type="submit">Delete</button>
+                    </form>
                         <img src="{{ asset('img/dummy.png')}}" class="img-thumbnail">
-                    </a>
+
                     <div class="row">
                         <div class="col-12">
                             <p class="samazon-product-label mt-2">

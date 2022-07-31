@@ -2,28 +2,25 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+
 class Admin extends Authenticatable
 {
     use Notifiable;
-
     protected function redirectTo($request){
         return route('dashboard.login');
     }
-
     protected $fillable=[
-        'name','email','password',
+        'name' ,'email','password',
     ];
 
     protected $hidden=[
-        'password', 'remember_token',
+        'password' ,'remember_token',
     ];
-
-    protected $casts =[
+    protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 }

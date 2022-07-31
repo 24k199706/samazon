@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="container">
-   <div class="row justify-content-center">
-       <div class="col-md-5">
-           <h3 class="mt-3 mb-3">新規会員登録</h3>
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <h3 class="mt-3 mb-3">新規会員登録</h3>
 
-           <hr>
+            <hr>
 
             <form method="POST" action="{{ route('register') }}">
                 @csrf
